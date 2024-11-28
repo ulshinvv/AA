@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище testikModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="commentID" />
+          </Key>
+          <Property Name="commentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="message" Type="varchar" MaxLength="100" />
+          <Property Name="masterID" Type="int" />
+          <Property Name="requestID" Type="int" />
+        </EntityType>
+        <EntityType Name="Reqiests">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="startDate" Type="date" />
+          <Property Name="orgTechType" Type="varchar" MaxLength="100" />
+          <Property Name="orgTechModel" Type="varchar" MaxLength="100" />
+          <Property Name="problemDescryption" Type="varchar" MaxLength="100" />
+          <Property Name="requestStatus" Type="varchar" MaxLength="100" />
+          <Property Name="completionDate" Type="date" />
+          <Property Name="masterID" Type="int" />
+          <Property Name="clientID" Type="int" />
+          <Property Name="repairParts" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fio" Type="varchar" MaxLength="100" />
+          <Property Name="phone" Type="varchar" MaxLength="50" />
+          <Property Name="login" Type="varchar" MaxLength="50" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="type" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__Comments__master__3F466844">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="masterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__reques__403A8C7D">
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reqiests">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reqiests__client__3C69FB99">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="Reqiests">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reqiests__master__3B75D760">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Reqiests">
+              <PropertyRef Name="masterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище testikModelContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reqiests" EntityType="Self.Reqiests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Comments__master__3F466844" Association="Self.FK__Comments__master__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__reques__403A8C7D" Association="Self.FK__Comments__reques__403A8C7D">
+            <End Role="Reqiests" EntitySet="Reqiests" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reqiests__client__3C69FB99" Association="Self.FK__Reqiests__client__3C69FB99">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Reqiests" EntitySet="Reqiests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reqiests__master__3B75D760" Association="Self.FK__Reqiests__master__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Reqiests" EntitySet="Reqiests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="testikModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Reqiests" Relationship="Self.FK__Reqiests__client__3C69FB99" FromRole="Client" ToRole="Reqiests" />
+        </EntityType>
+        <EntityType Name="Comments">
+          <Key>
+            <PropertyRef Name="commentID" />
+          </Key>
+          <Property Name="commentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="message" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="masterID" Type="Int32" />
+          <Property Name="requestID" Type="Int32" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Comments__master__3F466844" FromRole="Comments" ToRole="User" />
+          <NavigationProperty Name="Reqiests" Relationship="Self.FK__Comments__reques__403A8C7D" FromRole="Comments" ToRole="Reqiests" />
+        </EntityType>
+        <EntityType Name="Reqiests">
+          <Key>
+            <PropertyRef Name="requestID" />
+          </Key>
+          <Property Name="requestID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="startDate" Type="DateTime" Precision="0" />
+          <Property Name="orgTechType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="orgTechModel" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="problemDescryption" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="requestStatus" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="completionDate" Type="DateTime" Precision="0" />
+          <Property Name="masterID" Type="Int32" />
+          <Property Name="clientID" Type="Int32" />
+          <Property Name="repairParts" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Reqiests__client__3C69FB99" FromRole="Reqiests" ToRole="Client" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__reques__403A8C7D" FromRole="Reqiests" ToRole="Comments" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Reqiests__master__3B75D760" FromRole="Reqiests" ToRole="User" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="userID" />
+          </Key>
+          <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK__Comments__master__3F466844" FromRole="User" ToRole="Comments" />
+          <NavigationProperty Name="Reqiests" Relationship="Self.FK__Reqiests__master__3B75D760" FromRole="User" ToRole="Reqiests" />
+        </EntityType>
+        <Association Name="FK__Reqiests__client__3C69FB99">
+          <End Role="Client" Type="Self.Client" Multiplicity="0..1" />
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="clientID" />
+            </Principal>
+            <Dependent Role="Reqiests">
+              <PropertyRef Name="clientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__master__3F466844">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="masterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Comments__reques__403A8C7D">
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reqiests">
+              <PropertyRef Name="requestID" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="requestID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reqiests__master__3B75D760">
+          <End Role="User" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Reqiests" Type="Self.Reqiests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="userID" />
+            </Principal>
+            <Dependent Role="Reqiests">
+              <PropertyRef Name="masterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="testikEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Comments" EntityType="Self.Comments" />
+          <EntitySet Name="Reqiests" EntityType="Self.Reqiests" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK__Reqiests__client__3C69FB99" Association="Self.FK__Reqiests__client__3C69FB99">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Reqiests" EntitySet="Reqiests" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__master__3F466844" Association="Self.FK__Comments__master__3F466844">
+            <End Role="User" EntitySet="User" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Comments__reques__403A8C7D" Association="Self.FK__Comments__reques__403A8C7D">
+            <End Role="Reqiests" EntitySet="Reqiests" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reqiests__master__3B75D760" Association="Self.FK__Reqiests__master__3B75D760">
+            <End Role="User" EntitySet="User" />
+            <End Role="Reqiests" EntitySet="Reqiests" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище testikModelContainer" CdmEntityContainer="testikEntities">
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="testikModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Comments">
+            <EntityTypeMapping TypeName="testikModel.Comments">
+              <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="commentID" ColumnName="commentID" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="masterID" ColumnName="masterID" />
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reqiests">
+            <EntityTypeMapping TypeName="testikModel.Reqiests">
+              <MappingFragment StoreEntitySet="Reqiests">
+                <ScalarProperty Name="requestID" ColumnName="requestID" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="orgTechType" ColumnName="orgTechType" />
+                <ScalarProperty Name="orgTechModel" ColumnName="orgTechModel" />
+                <ScalarProperty Name="problemDescryption" ColumnName="problemDescryption" />
+                <ScalarProperty Name="requestStatus" ColumnName="requestStatus" />
+                <ScalarProperty Name="completionDate" ColumnName="completionDate" />
+                <ScalarProperty Name="masterID" ColumnName="masterID" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+                <ScalarProperty Name="repairParts" ColumnName="repairParts" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="testikModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="fio" ColumnName="fio" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

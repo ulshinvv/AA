@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf7759727b6041d1a822370c4dcfe5db" Name="Diagram1">
+        <EntityTypeShape EntityType="testikModel.Client" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="testikModel.Comments" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="testikModel.Reqiests" Width="1.5" PointX="6" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="testikModel.User" Width="1.5" PointX="0.75" PointY="3.375" IsExpanded="true" />
+        <AssociationConnector Association="testikModel.FK__Reqiests__client__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="testikModel.FK__Comments__master__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="testikModel.FK__Comments__reques__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="testikModel.FK__Reqiests__master__3B75D760" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
